@@ -1,47 +1,37 @@
-// Cost Is Same As Recursive ! Why??
-#include <bits/stdc++.h>
-#include <iostream>
+#include<bits/stdc++.h>
 using namespace std;
 int aa=0;
-bool isPalindrome(string s,int i,int j)
+bool isPalin(string s,int i,int j)
 {
-    while(i<j)
+    while(i<=j)
     {
         if(s[i]!=s[j])
             return false;
-        i++;j--;
+        i++;
+        j--;
     }
     return true;
 }
-int fun(string s,int i,int j,vector<vector<int>> dp)
+int fun(string s,int i,int j,vector<vector<int>>&dp)
 {
-    cout<<aa<<"  ";
-    aa++;
-    if(i>=j || isPalindrome(s,i,j))
-    {
-        dp[i][j]=0;
-        return 0;
-    }
-    if(dp[i][j]!=-1)
-        return dp[i][j];
-    int ans=INT_MAX;
+    if(i>j || isPalin(s,i,j)==true){return 0;}
+    
+    if(dp[i][j]!=-1){return dp[i][j];}
+    
+    int cost=INT_MAX;
     for(int k=i;k<j;k++)
     {
-        int temp=fun(s,i,k,dp)+fun(s,k+1,j,dp)+1;
-        ans=min(temp,ans);
+        int temp=1+fun(s,i,k,dp)+fun(s,k+1,j,dp);
+        cost=min(temp,cost);
     }
-    dp[i][j]=ans;
-    return ans;
+    return dp[i][j]=cost;
 }
-int main() {
-    string s="geeekss";
-    int n=s.size();
-    
-    vector<vector<int>> dp(n,vector<int>(n,-1));
-    
-    int i=0;
-    int j=n-1;
-    
-    cout<<fun(s,i,j,dp);
-    return 0;
+int main()
+{
+    string str = "ababbbabbababa";
+    int n=str.length();
+    vector<vector<int>> dp(n+1,vector<int>(n+1,-1));
+    cout<<"No. Of Partitioning : "<<fun(str,0,n-1,dp);
+    return 0;    
 }
+
