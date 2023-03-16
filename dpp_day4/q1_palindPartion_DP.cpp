@@ -1,6 +1,5 @@
 #include<bits/stdc++.h>
 using namespace std;
-int aa=0;
 bool isPalin(string s,int i,int j)
 {
     while(i<=j)
