@@ -1,3 +1,4 @@
+// STORE PREV AS PREV+1 , INSTEAD OF STORING -1 IN DP SOLUTION..
 #include<bits/stdc++.h>
 using namespace std;
 int fun(int arr[],int prev,int i,int n)
