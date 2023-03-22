@@ -1,4 +1,6 @@
-// Leetcode https://leetcode.com/problems/is-graph-bipartite/submissions/
+// Leetcode https://leetcode.com/problems/is-graph-bipartite/
+
+// METHOD 1 : BFS BIPARTITE
 class Solution {
 public:
     void fun(vector<vector<int>>& graph,vector<bool> &vis,vector<int> &col,int s,bool &ans)
@@ -44,3 +46,42 @@ public:
     }
 };
 
+// METHOD 2: DFS BIPARTITE
+
+class Solution {
+public:
+    void fun(vector<vector<int>>& graph,vector<int> &col,vector<bool> &vis, bool &ans, int s)
+    {
+        for(auto k:graph[s])
+        {
+            if(vis[k]==false)
+            {
+                vis[k]=true;
+                col[k]=col[s]*-1;
+                fun(graph,col,vis,ans,k);
+            }
+            else
+            {
+                if(col[k]!=col[s]*-1){ans=false;return;}
+            }
+        }
+    }
+    bool isBipartite(vector<vector<int>>& graph) {
+        int V=graph.size();
+        vector<bool> vis(V,false);
+        vector<int> col(V,0);
+        bool ans=true;
+        
+        for(int i=0;i<V;i++)
+        {
+            if(vis[i]==false)
+            {
+                vis[i]=true;
+                col[i]=1;
+                fun(graph,col,vis,ans,i);
+            }
+            if(!ans){return ans;}
+        }
+        return ans;
+    }
+};
