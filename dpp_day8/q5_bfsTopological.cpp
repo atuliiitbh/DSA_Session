@@ -27,3 +27,37 @@
 	    }
 	    return ans;
 	}
+
+// METHOD 02 : TOPOLOGICAL SORT USING DFS
+
+	void fun(vector<int> adj[],vector<bool> &vis,stack<int> &s,int i)
+	{
+	    vis[i]=true;
+	    for(auto j:adj[i])
+	    {
+	        if(vis[j]==false)
+	        {
+	            fun(adj,vis,s,j);
+	        }
+	    }
+	    s.push(i);
+	}
+	vector<int> topoSort(int V, vector<int> adj[]) 
+	{
+	    // code here
+	    vector<bool> vis(V,false);
+	    stack<int> s;
+	    for(int i=0;i<V;i++)
+	    {
+	        if(vis[i]==false)
+	        {
+	            fun(adj,vis,s,i);
+	        }
+	    }
+	    vector<int> ans;
+	    while(!s.empty())
+	    {
+	        ans.push_back(s.top());s.pop();
+	    }
+	    return ans;
+	}
