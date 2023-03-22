@@ -1,7 +1,7 @@
 //GFG https://practice.geeksforgeeks.org/problems/topological-sort/1
 //Function to return list containing vertices in Topological order. 
 
-
+.
 // METHOD 01 : TOPOLOGICAL SORT USING BFS
 	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
