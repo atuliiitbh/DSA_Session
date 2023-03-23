@@ -108,6 +108,46 @@ void cc(vector<vector<int>> adj)
     cout<<"Connected Components: "<<ans<<endl;
 }
 
+// CHECKING BIPARTITE
+void bipartfun(vector<vector<int>> adj,vector<bool> &vis,vector<int> &col,int i,int &ans)
+{
+    queue<int> q;
+    q.push(i);
+    while(!q.empty())
+    {
+        int u=q.front();q.pop();
+        for(auto k:adj[u])
+        {
+            if(vis[k]==false)
+            {
+                col[k]=col[i]*-1;
+                vis[k]=true;
+                q.push(k);
+            }
+            if(col[k]!=col[i]*-1){ans=false;return;}
+        }
+    }
+}
+void bipart(vector<vector<int>> adj)
+{
+    int v=adj.size();
+    vector<bool> vis(v,false);
+    vector<int> col(v,0);
+    int ans=false;
+    
+    for(int i=1;i<v;i++)
+    {
+        if(vis[i]==false)
+        {
+            vis[i]=true;
+            col[i]=1;
+            bipartfun(adj,vis,col,i,ans);
+        }
+    }
+    if(ans){cout<<"Yes The Graph Is Bipartite.";}
+    else{cout<<"No The Graph Is Not Bipartite.";}
+}
+
 int main()
 {
     int v=9; // no. of vertices 1-based indexing
@@ -134,6 +174,8 @@ int main()
     dfs(adj);
     cout<<endl;
     cc(adj);
+    cout<<endl;
+    bipart(adj);
     
     return 0;
 }
